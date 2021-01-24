@@ -1,2 +1,3 @@
 node_modules
 cloudfront_key
+.env.test

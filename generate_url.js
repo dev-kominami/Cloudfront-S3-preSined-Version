@@ -5,7 +5,12 @@ const moment = require('moment');
 
 // 対象となるリソースのURL
 domain = process.env.DOMAIN;
-const target = `https://${domain}/20191108221114.png`;
+//versionが指定されていればquerystringを追加
+queryString = '';
+if (process.env.VERSION) {
+  queryString = `?versionId=${process.env.VERSION}`
+}
+const target = `https://${domain}/sample.jpg${queryString}`;
 
 /**
  * AWS.CloudFront.Signer.getSignedUrlを呼び出す。
@@ -38,7 +43,7 @@ async function main() {
 
   // 期限を設定
   // 現在日時から1日後まで有効とする
-  const expires = moment.utc().add(1, 'days').unix();
+  const expires = moment.utc().add(3, 'days').unix();
 
   // URL生成
   const url = await getSignedUrlAsync(
